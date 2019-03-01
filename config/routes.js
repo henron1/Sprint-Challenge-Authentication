@@ -3,7 +3,7 @@ require('dotenv').config();
 const Users = require('../users/user-model');
 const bcrypt = require('bcryptjs');
 const { authenticate } = require('../auth/authenticate');
-const db = require('../database/dbConfig');
+// const db = require('../database/dbConfig');
 const jwt = require('jsonwebtoken');
 
 function generateToken(user) {
@@ -47,7 +47,7 @@ function login(req, res) {
     .first()
     .then(user => {
       if (user && bcrypt.compareSync(password, user.password)) {
-        const token = tokenService.generateToken(user); // new
+        const token = generateToken(user); // new
         res.status(200).json({
           message: `Welcome ${user.username}!, have a token...`,
           token,
